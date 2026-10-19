@@ -431,17 +431,170 @@
     @keyframes float { to { transform: translateY(-6px); } }
     @keyframes foil { from { background-position: 100% 0; } to { background-position: 0 0; } }
 
-    /* Ticker: a slow band of what I work on, between hero and About */
-    .ticker {
-      overflow: hidden; border-block: 1px solid var(--line); background: #fff; padding: 18px 0;
-      -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-              mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    /* =================================================================
+       5. CAPABILITIES SHOWCASE (Interactive hover showcase replacing ticker)
+       ================================================================= */
+    .capabilities-showcase {
+      position: relative;
+      background: #ffffff;
+      border-block: 1px solid var(--line);
+      padding: 34px 0 38px;
+      overflow: hidden;
     }
-    .ticker-track { display: flex; width: max-content; }
-    .ticker-list { display: flex; align-items: center; flex: none; }
-    .ticker-list li { display: inline-flex; align-items: center; padding-right: 30px; font-size: 1.02rem; font-weight: 500; color: var(--ink-2); white-space: nowrap; }
-    .ticker-list li::before { content: ""; flex: none; width: 6px; height: 6px; margin-right: 30px; background: var(--gold); transform: rotate(45deg); }
-    .ticker-list li.mono { color: var(--green-deep); font-weight: 400; font-size: .96rem; }
+    .capabilities-showcase::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(var(--grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+      background-size: 24px 24px;
+      opacity: .6;
+    }
+    .cap-header {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 22px;
+    }
+    .cap-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .cap-pill-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: .82rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      color: var(--green-deep);
+      background: var(--mint);
+      border: 1px solid var(--mint-line);
+      padding: 4px 12px;
+      border-radius: 999px;
+    }
+    .cap-lead {
+      font-size: .96rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+    .cap-hint {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: .84rem;
+      color: var(--gold-deep);
+      font-family: var(--font-mono);
+    }
+    .cap-hint .icon { width: 14px; height: 14px; color: var(--gold); }
+    
+    .cap-grid {
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: stretch;
+    }
+    .cap-item {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #ffffff;
+      border: 1px solid var(--line);
+      padding: 9px 16px;
+      border-radius: 12px;
+      cursor: default;
+      outline: none;
+      box-shadow: 0 2px 6px -2px rgba(15, 31, 25, .05);
+      transition: transform .28s var(--ease),
+                  box-shadow .28s var(--ease),
+                  border-color .25s ease,
+                  background-color .25s ease;
+      user-select: none;
+    }
+    .cap-item .cap-dot {
+      transition: transform .3s var(--ease);
+    }
+    .cap-name {
+      font-size: .95rem;
+      font-weight: 500;
+      color: var(--ink);
+      line-height: 1.2;
+      transition: color .2s ease;
+    }
+    .cap-name.mono {
+      font-family: var(--font-mono);
+      font-size: .9rem;
+      color: var(--green-deep);
+    }
+    .cap-tag {
+      font-size: .75rem;
+      font-weight: 500;
+      color: var(--muted);
+      background: var(--canvas);
+      border: 1px solid var(--line);
+      padding: 2px 8px;
+      border-radius: 999px;
+      transition: background-color .25s ease, color .25s ease, border-color .25s ease;
+      line-height: 1.3;
+    }
+
+    /* Interactive 3D Lift & Glow Hover Effects */
+    .cap-item:hover,
+    .cap-item:focus-visible {
+      transform: translateY(-4px) scale(1.03);
+      border-color: var(--green);
+      background: #ffffff;
+      box-shadow: 0 12px 26px -6px rgba(6, 95, 70, .20), 0 0 0 1px rgba(6, 95, 70, .15);
+      z-index: 2;
+    }
+    .cap-item:hover .cap-dot,
+    .cap-item:focus-visible .cap-dot {
+      transform: scale(1.35) rotate(45deg);
+    }
+    .cap-item:hover .cap-name,
+    .cap-item:focus-visible .cap-name {
+      color: var(--green-deep);
+    }
+    .cap-item:hover .cap-tag,
+    .cap-item:focus-visible .cap-tag {
+      background: var(--mint);
+      color: var(--green-deep);
+      border-color: var(--mint-line);
+    }
+
+    .cap-item.is-tech {
+      background: #fbfdfc;
+    }
+    .cap-item.is-tech:hover,
+    .cap-item.is-tech:focus-visible {
+      border-color: var(--green-deep);
+      box-shadow: 0 14px 28px -6px rgba(6, 95, 70, .26), 0 0 0 1px var(--green-deep);
+    }
+    .cap-item.is-industry:hover,
+    .cap-item.is-industry:focus-visible {
+      border-color: var(--gold);
+      box-shadow: 0 14px 28px -6px rgba(201, 164, 92, .28), 0 0 0 1px var(--gold-line);
+    }
+    .cap-item.is-industry:hover .cap-tag,
+    .cap-item.is-industry:focus-visible .cap-tag {
+      background: var(--gold-soft);
+      color: var(--gold-deep);
+      border-color: var(--gold-line);
+    }
+    .cap-item.is-industry:hover .cap-name,
+    .cap-item.is-industry:focus-visible .cap-name {
+      color: var(--gold-deep);
+    }
 
     /* =================================================================
        6. ABOUT — my story, philosophy and way of working
@@ -774,8 +927,9 @@
       .js .journey.is-in .journey-seg { clip-path: inset(0 0 0 0); transition: clip-path 1s var(--ease) .3s; }
       .js .journey.is-in .seg-pro { transition-delay: .75s; }
 
-      /* the moving band is driven by the script when it runs */
-      .ticker.is-js .ticker-track { animation: none; }
+      /* Capabilities showcase animation stagger */
+      .js .cap-item[data-reveal] { opacity: 0; transform: translateY(14px); }
+      .js .cap-item.is-in { opacity: 1; transform: none; transition: opacity .6s var(--ease), transform .6s var(--ease); transition-delay: calc(var(--d, 0) * 45ms); }
 
       /* Plan, Prepare, Execute: each step's line draws in, in order */
       .js .method-step[data-reveal]::before { transform: scaleX(0); }
@@ -793,9 +947,8 @@
       .js .quote[data-reveal] .qw { opacity: .14; }
       .js .quote.is-in .qw { opacity: 1; transition: opacity .7s var(--ease); transition-delay: calc(var(--q, 0) * 90ms + .35s); }
 
-      /* ticker drifts (the script takes over when it runs); pauses on hover */
-      .ticker-track { animation: ticker 50s linear infinite; }
-      .ticker:not(.is-js):hover .ticker-track { animation-play-state: paused; }
+      /* Capabilities items float smoothly on interactive hover */
+      .cap-item { will-change: transform, box-shadow; }
 
       /* gold glow breathes slowly */
       .contact-panel::after { animation: glow 10s ease-in-out infinite alternate; }
@@ -1141,13 +1294,108 @@
       </div>
     </section>
 
-    <!-- Ticker: decorative; the same details appear in the sections below -->
-    <div class="ticker" aria-hidden="true">
-      <div class="ticker-track">
-        <ul class="ticker-list"><li>Buying</li><li>Selling</li><li>CRM</li><li>Helpdesk</li><li>Manufacturing</li><li>Accounting</li><li>HRMS</li><li>Education</li><li class="mono">Frappe Framework</li><li class="mono">ERPNext</li><li>Textile</li><li>Retail</li><li class="mono">e-Way Bill</li><li class="mono">Biometric</li><li class="mono">IoT</li><li>Project management</li><li>Team leadership</li></ul>
-        <ul class="ticker-list"><li>Buying</li><li>Selling</li><li>CRM</li><li>Helpdesk</li><li>Manufacturing</li><li>Accounting</li><li>HRMS</li><li>Education</li><li class="mono">Frappe Framework</li><li class="mono">ERPNext</li><li>Textile</li><li>Retail</li><li class="mono">e-Way Bill</li><li class="mono">Biometric</li><li class="mono">IoT</li><li>Project management</li><li>Team leadership</li></ul>
+    <!-- Core Capabilities Showcase: interactive domain & tech highlights with 3D lift & glow hover effects -->
+    <section class="capabilities-showcase" aria-label="Core Capabilities and Focus Areas">
+      <div class="container">
+        <div class="cap-header">
+          <div class="cap-title-wrap">
+            <span class="cap-pill-label"><i class="key key-tech" aria-hidden="true"></i>Core Focus</span>
+            <span class="cap-lead">Enterprise ERP Modules, Frameworks &amp; Technologies</span>
+          </div>
+          <span class="cap-hint"><svg class="icon" aria-hidden="true"><use href="#i-zap"/></svg>Hover to explore domains</span>
+        </div>
+        <div class="cap-grid">
+          <!-- ERP Business Domains -->
+          <div class="cap-item" tabindex="0">
+            <span class="cap-dot key-fn"></span>
+            <span class="cap-name">Buying</span>
+            <span class="cap-tag">Procurement</span>
+          </div>
+          <div class="cap-item" tabindex="0">
+            <span class="cap-dot key-fn"></span>
+            <span class="cap-name">Selling</span>
+            <span class="cap-tag">Order Management</span>
+          </div>
+          <div class="cap-item" tabindex="0">
+            <span class="cap-dot key-fn"></span>
+            <span class="cap-name">CRM</span>
+            <span class="cap-tag">Customer Lifecycle</span>
+          </div>
+          <div class="cap-item" tabindex="0">
+            <span class="cap-dot key-fn"></span>
+            <span class="cap-name">Helpdesk</span>
+            <span class="cap-tag">Support &amp; SLA</span>
+          </div>
+          <div class="cap-item" tabindex="0">
+            <span class="cap-dot key-fn"></span>
+            <span class="cap-name">Manufacturing</span>
+            <span class="cap-tag">BOM &amp; Operations</span>
+          </div>
+          <div class="cap-item" tabindex="0">
+            <span class="cap-dot key-fn"></span>
+            <span class="cap-name">Accounting</span>
+            <span class="cap-tag">Finance &amp; Ledger</span>
+          </div>
+          <div class="cap-item" tabindex="0">
+            <span class="cap-dot key-fn"></span>
+            <span class="cap-name">HRMS</span>
+            <span class="cap-tag">Payroll &amp; Leaves</span>
+          </div>
+          <div class="cap-item" tabindex="0">
+            <span class="cap-dot key-fn"></span>
+            <span class="cap-name">Education</span>
+            <span class="cap-tag">Student &amp; Academics</span>
+          </div>
+          <!-- Engineering & Frameworks -->
+          <div class="cap-item is-tech" tabindex="0">
+            <span class="cap-dot key-tech"></span>
+            <span class="cap-name mono">Frappe Framework</span>
+            <span class="cap-tag">Full-Stack Core</span>
+          </div>
+          <div class="cap-item is-tech" tabindex="0">
+            <span class="cap-dot key-tech"></span>
+            <span class="cap-name mono">ERPNext V15</span>
+            <span class="cap-tag">Certified</span>
+          </div>
+          <div class="cap-item is-tech" tabindex="0">
+            <span class="cap-dot key-tech"></span>
+            <span class="cap-name mono">e-Way Bill</span>
+            <span class="cap-tag">Compliance API</span>
+          </div>
+          <div class="cap-item is-tech" tabindex="0">
+            <span class="cap-dot key-tech"></span>
+            <span class="cap-name mono">Biometric Sync</span>
+            <span class="cap-tag">Hardware / Attendance</span>
+          </div>
+          <div class="cap-item is-tech" tabindex="0">
+            <span class="cap-dot key-tech"></span>
+            <span class="cap-name mono">IoT Integration</span>
+            <span class="cap-tag">Shop Floor Automation</span>
+          </div>
+          <!-- Industry & Delivery -->
+          <div class="cap-item is-industry" tabindex="0">
+            <span class="cap-dot key-fn"></span>
+            <span class="cap-name">Textile &amp; Apparel</span>
+            <span class="cap-tag">Tiruppur Hub</span>
+          </div>
+          <div class="cap-item is-industry" tabindex="0">
+            <span class="cap-dot key-fn"></span>
+            <span class="cap-name">Retail &amp; Distribution</span>
+            <span class="cap-tag">Multi-Store POS</span>
+          </div>
+          <div class="cap-item is-industry" tabindex="0">
+            <span class="cap-dot key-fn"></span>
+            <span class="cap-name">Project Management</span>
+            <span class="cap-tag">End-to-End Delivery</span>
+          </div>
+          <div class="cap-item is-industry" tabindex="0">
+            <span class="cap-dot key-fn"></span>
+            <span class="cap-name">Team Leadership</span>
+            <span class="cap-tag">Sprint &amp; Mentorship</span>
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
 
     <!-- ===============================================================
          ABOUT
@@ -2174,35 +2422,19 @@
       header.addEventListener("focusin", function () { header.classList.remove("is-hidden"); });
       update();
 
-      /* 4b. Moving band: drifts on its own, speeds up while you scroll and
-             follows your direction (left going down, right going up).
-             Hovering slows it down. */
-      var ticker = document.querySelector(".ticker");
-      var track = document.querySelector(".ticker-track");
-      if (motionOK && ticker && track) {
-        ticker.classList.add("is-js");
-        var tx = 0, lastT = 0, boost = 0, hovering = false, tickerOnScreen = true;
-        ticker.addEventListener("mouseenter", function () { hovering = true; });
-        ticker.addEventListener("mouseleave", function () { hovering = false; });
-        if ("IntersectionObserver" in window) {
-          new IntersectionObserver(function (e) { tickerOnScreen = e[0].isIntersecting; }).observe(ticker);
-        }
-        var tick = function (t) {
-          var dt = lastT ? Math.min(64, t - lastT) / 1000 : 0;
-          lastT = t;
-          boost += (Math.min(50, Math.abs(velocity)) * 14 - boost) * 0.08;
-          velocity *= 0.9;
-          if (tickerOnScreen) {
-            var half = track.scrollWidth / 2;
-            // hovering slows the band down so it can be read; scrolling still drives it
-            tx += (scrollDir > 0 ? -1 : 1) * ((hovering ? 10 : 36) + boost) * dt;
-            if (tx <= -half) tx += half;
-            if (tx > 0) tx -= half;
-            track.style.transform = "translate3d(" + tx.toFixed(2) + "px, 0, 0)";
-          }
-          requestAnimationFrame(tick);
-        };
-        requestAnimationFrame(tick);
+      /* 4b. Interactive Capabilities Showcase: magnetic tilt on hover */
+      if (motionOK && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+        document.querySelectorAll(".cap-item").forEach(function (item) {
+          item.addEventListener("mousemove", function (e) {
+            var rect = item.getBoundingClientRect();
+            var x = e.clientX - rect.left - rect.width / 2;
+            var y = e.clientY - rect.top - rect.height / 2;
+            item.style.transform = "translate3d(" + (x * 0.12).toFixed(1) + "px, " + (y * 0.12 - 4).toFixed(1) + "px, 0) scale(1.03)";
+          });
+          item.addEventListener("mouseleave", function () {
+            item.style.transform = "";
+          });
+        });
       }
 
       /* 5. Highlight the nav link for the section in view */
@@ -2232,7 +2464,7 @@
       // Single elements that rise in on their own
       var SINGLES = "main .section-head, .about-text, .profile-card, .quote, .method-head, .exp-group-head, .hub, .skill-panel-intro, .journey, .cert-feature, .contact-panel";
       // Groups whose children rise in one after another
-      var GROUPS = ".method-steps, .expertise-grid, .module-grid, .skills-layout, .competency-list, .tech-groups, .timeline, .work-grid, .cert-grid";
+      var GROUPS = ".cap-grid, .method-steps, .expertise-grid, .module-grid, .skills-layout, .competency-list, .tech-groups, .timeline, .work-grid, .cert-grid";
 
       if (motionOK && "IntersectionObserver" in window) {
         var targets = [];
